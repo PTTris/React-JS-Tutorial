@@ -1,51 +1,48 @@
-import React from "react";
+import {useState} from "react";
 
-class AddUserInfor extends React.Component {
-   state = {
-      name: "PT26",
-      age: 21,
-      address: "Trà Vinh",
+const AddUserInfor = (props) => {
+   const {handleAddUserInfor} = props;
+   const [name, setName] = useState("PT269");
+   const [age, setAge] = useState(21);
+   const [address, setAddress] = useState("Trà Vinh");
+
+   const handleOnchangeName = (event) => {
+      setName(event.target.value);
    };
 
-   handleOnchangeName = (event) => {
-      this.setState({ name: event.target.value });
+   const handleOnchangeAge = (event) => {
+      setAge(event.target.value);  
    };
 
-   handleOnchangeAge = (event) => {
-      this.setState({ age: event.target.value });
-   };
-
-   handleOnsubmit = (event) => {
+   const handleOnsubmit = (event) => {
       event.preventDefault();
-      this.props.handleAddUserInfor({
+      handleAddUserInfor({
          id: Math.floor((Math.random() * 100) + 1) + "-random",
-         name: this.state.name,
-         age: this.state.age,
+         name: name,
+         age: age,
       });
    };
 
-   render() {
-      return (
-         <div>
+   return (
+      <>
          <p>
-            My name: {this.state.name}, My age: {this.state.age}
+            My name: {name}, My age: {age}
          </p>
-         <form onSubmit={(event) => this.handleOnsubmit(event)}>
+         <form onSubmit={(event) => handleOnsubmit(event)}>
             <input
-               value={this.state.name}
+               value={name}
                type="text"
-               onChange={(event) => this.handleOnchangeName(event)}
+               onChange={(event) => handleOnchangeName(event)}
             />
             <input
-               value={this.state.age}
+               value={age}
                type="text"
-               onChange={(event) => this.handleOnchangeAge(event)}
+               onChange={(event) => handleOnchangeAge(event)}
             />
             <button>Submit</button>
          </form>
-         </div>
-      );
-   }
+      </>
+   );
 }
 
 export default AddUserInfor;

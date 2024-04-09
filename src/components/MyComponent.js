@@ -1,35 +1,39 @@
 // class component
 // function component
-import React from "react";
+import {useState} from "react";
 import AddUserInfor from "./AddUserInfor";
 import DisplayInfor from "./DisplayInfor";
 
-class MyComponent extends React.Component {
-   state = {
-      listUsers: [
+const MyComponent = () => {
+   const [listUsers, setListUser] = useState( 
+      [
          { id: 1, name: "Phan Thanh Trí", age: 21 },
          { id: 2, name: "Trần Tú Khanh", age: 18 },      
          { id: 3, name: "PT26", age: 25 },
       ]
-   };
-   handleAddUserInfor = (userObj) => {
-      this.setState({
-         listUsers: [userObj,...this.state.listUsers]
-      })
+   );
+
+   const handleAddUserInfor = (userObj) => {
+     setListUser([userObj,...listUsers])
    }
-   render() {
-      return (
-      <div>
-         <h1>PT26 with ReactJS</h1>
-         <AddUserInfor 
-            handleAddUserInfor = {this.handleAddUserInfor}
-         />
-         <DisplayInfor 
-            listUsers = {this.state.listUsers}
-         />
-      </div>
-      );
+   const handleDeleteUser = (userId) => {
+      let listUsersClone = listUsers;
+      let newlistUsersClone = listUsersClone.filter(user => user.id !== userId)
+      setListUser(newlistUsersClone)
    }
+   return (
+   <div>
+      <h1>PT26 with ReactJS</h1>
+      <AddUserInfor 
+         handleAddUserInfor = {handleAddUserInfor}
+      />
+      <DisplayInfor 
+         listUsers = {listUsers}
+         handleDeleteUser = {handleDeleteUser}
+      />
+   </div>
+   );
+   
 }
 
 export default MyComponent;
