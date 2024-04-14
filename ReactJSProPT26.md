@@ -101,9 +101,16 @@ handleClick = () => {
 - Sử dụng userEffect khi xử lý các tác vụ liên quan đến DOM
 - Thêm [] cho argument thứ 2 thì chỉ chạy 1 lần
 - Muốn theo dõi giá trị quá khứ tưởng lai của một state thì thêm vào 
-VD: [listUsers]
+* VD: [listUsers]
 
 ## Bài 49: Nested Routes
 
 - Các route con sẽ nằm trong route cha để chia sẽ phần dùng chung
 - Đồng thời <Outlet> sẽ là nơi mà phần con sẽ được render ra 
+
+# CÁC THƯ VIỆN ĐÃ SỬ DỤNG
+- react-bootstrap": "2.4.0",
+- react-icons": "4.4.0",
+- react-pro-sidebar": "0.7.1",
+- react-redux": "8.0.1",
+- react-router-dom": "^6.22.3",
