@@ -1,6 +1,5 @@
 import SideBar from "./SideBar";
 import "./Admin.scss";
-import { FaBars } from "react-icons/fa";
 import { useState } from "react";
 import { Outlet } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
@@ -12,12 +11,10 @@ const Admin = (props) => {
     return (
         <div className="admin-container">
             <div className="admin-sidebar">
-                <SideBar collapsed={collapsed} />
+                <SideBar collapsed={collapsed} setCollapsed={setCollapsed} />
             </div>
             <div className="admin-content">
-                <div className="admin-header">
-                    <FaBars onClick={() => setCollapsed(!collapsed)} />
-                </div>
+                <div className="admin-header"></div>
                 <div className="admin-main">
                     <Outlet />
                 </div>
