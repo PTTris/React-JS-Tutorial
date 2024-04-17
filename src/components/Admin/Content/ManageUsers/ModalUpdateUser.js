@@ -2,11 +2,11 @@ import { useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { toast } from "react-toastify";
-import { postCreateUser } from "../../../../Services/apiService";
+import { postCreateUser, putUpdateUser } from "../../../../Services/apiService";
 import _ from "lodash";
 
 const ModalUpdateUser = (props) => {
-    const { show, setShow, fetchUsers, dataUpdate } = props;
+    const { show, setShow, fetchUsers, dataUpdate, setDataUpdate } = props;
 
     const handleClose = () => {
         setShow(false);
@@ -16,6 +16,7 @@ const ModalUpdateUser = (props) => {
         setRole("USER");
         setImage("");
         setPreviewImg("");
+        setDataUpdate({});
     };
 
     const [email, setEmail] = useState("");
@@ -44,43 +45,14 @@ const ModalUpdateUser = (props) => {
         //   else setPreviewImg("");
         setImage(event.target.files[0]);
     };
-
-    const validateEmail = (email) => {
-        return String(email)
-            .toLowerCase()
-            .match(
-                /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-            );
-    };
-
     const handleSubmitCreateUser = async () => {
-        if (!validateEmail(email)) {
-            toast.error("Invalid email!");
-            return;
-        }
-        if (!password) {
-            toast.error("Invalid password!");
-            return;
-        }
-        if (password.length < 8) {
-            toast.error("Please enter 8 characters");
-            return;
-        }
         if (!username) {
             toast.error("Invalid username!");
             return;
         }
 
         //   Call API
-        //   let data = {
-        //      email: email,
-        //      password: password,
-        //      username: username,
-        //      role: role,
-        //      userImage: image,
-        //   };
-
-        let data = await postCreateUser(email, password, username, role, image);
+        let data = await putUpdateUser(dataUpdate.id, username, role, image);
 
         if (data && data.EC !== 0) {
             toast.error(data.EM);
@@ -123,6 +95,7 @@ const ModalUpdateUser = (props) => {
                                 Password
                             </label>
                             <input
+                                disabled
                                 type="password"
                                 className="form-control"
                                 value={password}
@@ -134,7 +107,6 @@ const ModalUpdateUser = (props) => {
                         <div className="col-md-8">
                             <label className="form-label">Username</label>
                             <input
-                                disabled
                                 type="text"
                                 className="form-control"
                                 value={username}

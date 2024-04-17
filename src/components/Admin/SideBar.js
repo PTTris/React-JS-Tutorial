@@ -32,7 +32,7 @@ const SideBar = (props) => {
                 onToggle={handleToggleSidebar}
             >
                 <SidebarHeader>
-                    {collapsed == false ? (
+                    {collapsed === false ? (
                         <div
                             style={{
                                 padding: "24px",

@@ -55,7 +55,9 @@ const ManageUsers = () => {
             <ModalUpdateUser
                 show={showModalUpdate}
                 setShow={setShowModalUpdate}
+                fetchUsers={fetchUsers}
                 dataUpdate={dataUpdate}
+                setDataUpdate={setDataUpdate}
             />
         </div>
     );
