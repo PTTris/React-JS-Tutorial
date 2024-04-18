@@ -5,8 +5,8 @@ import { toast } from "react-toastify";
 import { putUpdateUser } from "../../../../Services/apiService";
 import _ from "lodash";
 
-const ModalUpdateUser = (props) => {
-    const { show, setShow, fetchUsers, dataUpdate, setDataUpdate } = props;
+const ModalViewUser = (props) => {
+    const { show, setShow, dataUpdate, setDataUpdate } = props;
 
     const handleClose = () => {
         setShow(false);
@@ -26,37 +26,13 @@ const ModalUpdateUser = (props) => {
             setPassword(dataUpdate.password);
             setUsername(dataUpdate.username);
             setRole(dataUpdate.role);
+            setImage("");
             if (dataUpdate.image) {
                 setPreviewImg(`data:image/jpeg;base64,${dataUpdate.image}`);
             }
         }
     }, [dataUpdate]);
 
-    const handleUpLoadFile = (event) => {
-        if (event.target && event.target.files && event.target.files[0])
-            setPreviewImg(URL.createObjectURL(event.target.files[0]));
-        //   else setPreviewImg("");
-        setImage(event.target.files[0]);
-    };
-
-    const handleSubmitCreateUser = async () => {
-        if (!username) {
-            toast.error("Invalid username!");
-            return;
-        }
-
-        //   Call API
-        let data = await putUpdateUser(dataUpdate.id, username, role, image);
-
-        if (data && data.EC !== 0) {
-            toast.error(data.EM);
-        }
-        if (data && data.EC === 0) {
-            toast.success(data.EM);
-            handleClose();
-            await fetchUsers();
-        }
-    };
     return (
         <>
             <Modal
@@ -79,9 +55,6 @@ const ModalUpdateUser = (props) => {
                                 type="email"
                                 className="form-control"
                                 value={email}
-                                onChange={(event) =>
-                                    setEmail(event.target.value)
-                                }
                             />
                         </div>
                         <div className="col-md-4">
@@ -93,30 +66,20 @@ const ModalUpdateUser = (props) => {
                                 type="password"
                                 className="form-control"
                                 value={password}
-                                onChange={(event) =>
-                                    setPassword(event.target.value)
-                                }
                             />
                         </div>
                         <div className="col-md-8">
                             <label className="form-label">Username</label>
                             <input
+                                disabled
                                 type="text"
                                 className="form-control"
                                 value={username}
-                                onChange={(event) =>
-                                    setUsername(event.target.value)
-                                }
                             />
                         </div>
                         <div className="col-md-4">
                             <label className="form-label">Role</label>
-                            <select
-                                className="form-select"
-                                onChange={(event) =>
-                                    setRole(event.target.value)
-                                }
-                            >
+                            <select disabled className="form-select">
                                 {role === "USER" ? (
                                     <>
                                         <option selected value={"USER"}>
@@ -134,20 +97,6 @@ const ModalUpdateUser = (props) => {
                                 )}
                             </select>
                         </div>
-                        <div className="col-12">
-                            <label
-                                className="form-image lable-upload"
-                                htmlFor="form-image-input"
-                            >
-                                Upload file image
-                            </label>
-                            <input
-                                id="form-image-input"
-                                type="file"
-                                hidden
-                                onChange={(event) => handleUpLoadFile(event)}
-                            />
-                        </div>
                         <div className="col-12 img-preview">
                             {previewImg ? (
                                 <img src={previewImg} alt="" />
@@ -163,18 +112,10 @@ const ModalUpdateUser = (props) => {
                     <Button variant="secondary" onClick={handleClose}>
                         Close
                     </Button>
-                    <Button
-                        variant="primary"
-                        onClick={() => {
-                            handleSubmitCreateUser();
-                        }}
-                    >
-                        Save Changes
-                    </Button>
                 </Modal.Footer>
             </Modal>
         </>
     );
 };
 
-export default ModalUpdateUser;
+export default ModalViewUser;

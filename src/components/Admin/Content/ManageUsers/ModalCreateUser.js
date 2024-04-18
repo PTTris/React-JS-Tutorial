@@ -6,7 +6,6 @@ import { postCreateUser } from "../../../../Services/apiService";
 
 const ModalCreateUser = (props) => {
     const { show, setShow, fetchUsers } = props;
-    console.log(show);
     const handleClose = () => {
         setShow(false);
         setEmail("");

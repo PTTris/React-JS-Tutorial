@@ -2,7 +2,12 @@ import { Table } from "react-bootstrap";
 
 import { MdDelete, MdSystemUpdateAlt, MdGridView } from "react-icons/md";
 const TableUser = (props) => {
-    const { listUsers, handleClickUpdateUser } = props;
+    const {
+        listUsers,
+        handleClickUpdateUser,
+        handleClickViewUser,
+        handleClickDeleteUser,
+    } = props;
 
     return (
         <>
@@ -41,6 +46,9 @@ const TableUser = (props) => {
                                     <td className=" fs-2 col-2 ">
                                         <MdGridView
                                             className="text-info mx-2"
+                                            onClick={() =>
+                                                handleClickViewUser(item)
+                                            }
                                             cursor={"pointer"}
                                         />
                                         <MdSystemUpdateAlt
@@ -52,6 +60,9 @@ const TableUser = (props) => {
                                         />
                                         <MdDelete
                                             className="text-danger"
+                                            onClick={() =>
+                                                handleClickDeleteUser(item)
+                                            }
                                             cursor={"pointer"}
                                         />
                                     </td>
