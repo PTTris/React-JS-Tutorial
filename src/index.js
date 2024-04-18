@@ -13,7 +13,9 @@ import Admin from "./components/Admin/Admin";
 import HomePage from "./components/Home/HomePage";
 import ManageUsers from "./components/Admin/Content/ManageUsers/ManageUsers";
 import DashBoard from "./components/Admin/Content/Dashboard";
-
+import Login from "./components/Auth/Login";
+import * as mdb from "mdb-ui-kit"; // lib
+window.mdb = mdb;
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
     <Provider store={store}>
@@ -28,6 +30,7 @@ root.render(
                         <Route index element={<DashBoard />} />
                         <Route path="manage-users" element={<ManageUsers />} />
                     </Route>
+                    <Route path="login" element={<Login />} />
                 </Routes>
             </BrowserRouter>
         </React.StrictMode>
