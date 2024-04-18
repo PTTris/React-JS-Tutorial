@@ -148,6 +148,35 @@ npm install --save-exact sass@1.53.0
 
 -   Sử dụng lodash để check dataUpdate có rỗng không
 
+## Bài 68: Paginate
+
+-   Sử dụng thư viện React Paginate
+
+    const handlePageClick = (event) => {
+    fetchUsersWithPaginate(event.selected + 1);
+    }
+
+    <ReactPaginate
+        onPageChange={handlePageClick}
+        pageRangeDisplayed={3}
+        marginPagesDisplayed={3}
+        pageCount={pageCount}
+        nextLabel=">"
+        previousLabel="<"
+        pageClassName="page-item"
+        pageLinkClassName="page-link"
+        previousClassName="page-item"
+        previousLinkClassName="page-link"
+        nextClassName="page-item"
+        nextLinkClassName="page-link"
+        breakLabel="..."
+        breakClassName="page-item"
+        breakLinkClassName="page-link"
+        containerClassName="pagination"
+        activeClassName="active"
+        renderOnZeroPageCount={null}
+    />
+
 # CÁC THƯ VIỆN ĐÃ SỬ DỤNG
 
 -   react-bootstrap": "2.4.0",
