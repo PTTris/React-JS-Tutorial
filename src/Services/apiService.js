@@ -29,14 +29,17 @@ const deleteUser = (userID) => {
 };
 
 const getUserWithPaginate = (page, limit) => {
-    // x-www-form-urlencoded
     return axios.get(`v1/participant?page=${page}&limit=${limit}`);
 };
 
+const postLogin = (email, password) => {
+    return axios.post(`/v1/login`, { email, password });
+};
 export {
     postCreateUser,
     getAllUser,
     putUpdateUser,
     deleteUser,
     getUserWithPaginate,
+    postLogin,
 };
