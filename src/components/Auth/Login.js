@@ -2,15 +2,35 @@ import { useState } from "react";
 import "./Login.scss";
 import { useNavigate } from "react-router-dom";
 import { postLogin } from "../../Services/apiService";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
+
 const Login = () => {
+    const validateEmail = (email) => {
+        return String(email)
+            .toLowerCase()
+            .match(
+                /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+            );
+    };
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const navigate = useNavigate();
     const handleLogin = async () => {
+        if (!validateEmail(email)) {
+            toast.error("Invalid email!");
+            return;
+        }
+        if (!password) {
+            toast.error("Invalid password!");
+            return;
+        }
+        if (password.length < 8) {
+            toast.error("Please enter 8 characters");
+            return;
+        }
         let data = await postLogin(email, password);
         console.log(data);
-        if (data.DT && data.EC === 0) {
+        if (data.EC === 0) {
             navigate("/");
         }
         if (data && +data.EC !== 0) {
@@ -325,9 +345,15 @@ const Login = () => {
                                     </button>
                                     <p class="small fw-bold mt-2 pt-1 mb-0">
                                         Don't have an account?{" "}
-                                        <a href="#!" class="link-danger">
+                                        <span
+                                            style={{ cursor: "pointer" }}
+                                            class="link-danger"
+                                            onClick={() =>
+                                                navigate("/register")
+                                            }
+                                        >
                                             Register
-                                        </a>
+                                        </span>
                                     </p>
                                 </div>
                             </form>

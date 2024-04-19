@@ -10,6 +10,9 @@ function Header() {
     const handleLogin = () => {
         navigate("/login");
     };
+    const handleRegister = () => {
+        navigate("/register");
+    };
 
     return (
         <Navbar collapseOnSelect expand="lg" className="bg-body-tertiary">
@@ -34,7 +37,9 @@ function Header() {
                         <button className="btnLogIn" onClick={handleLogin}>
                             Log in
                         </button>
-                        <button className="btnSignUp">Sign Up</button>
+                        <button className="btnSignUp" onClick={handleRegister}>
+                            Sign Up
+                        </button>
                         {/* <NavDropdown title="Setting" id="collapsible-nav-dropdown">
                <NavDropdown.Item href="/login">Log in</NavDropdown.Item>
                <NavDropdown.Item href="/logout">Log out</NavDropdown.Item>
