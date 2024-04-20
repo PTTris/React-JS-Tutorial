@@ -5,7 +5,7 @@ import { postLogin } from "../../Services/apiService";
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 import { doLogin } from "../../redux/action/userAction";
-
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
 const Login = () => {
     const validateEmail = (email) => {
         return String(email)
@@ -19,7 +19,7 @@ const Login = () => {
     const [password, setPassword] = useState("");
     const navigate = useNavigate();
     const dispatch = useDispatch();
-
+    const [isLoading, setIsLoading] = useState(false);
     const handleLogin = async () => {
         if (!validateEmail(email)) {
             toast.error("Invalid email!");
@@ -33,14 +33,17 @@ const Login = () => {
             toast.error("Please enter 8 characters");
             return;
         }
+        setIsLoading(true);
         let data = await postLogin(email, password);
         console.log(data);
         if (data.EC === 0) {
             dispatch(doLogin(data));
+            setIsLoading(false);
             navigate("/");
         }
         if (data && +data.EC !== 0) {
             toast.error(data.EM);
+            setIsLoading(false);
         }
     };
     return (
@@ -225,7 +228,7 @@ const Login = () => {
                     <div class="row d-flex justify-content-center align-items-center h-100">
                         <div class="col-md-9 col-lg-6 col-xl-5">
                             <img
-                                src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp"
+                                src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.svg"
                                 class="img-fluid"
                                 alt="Sample"
                             />
@@ -340,14 +343,15 @@ const Login = () => {
                                         type="button"
                                         data-mdb-button-init
                                         data-mdb-ripple-init
-                                        class="btn btn-primary btn-lg "
-                                        style={{
-                                            paddingLeft: "2.5rem",
-                                            paddingRight: "2.5rem",
-                                        }}
+                                        className="btn btn-primary btn-lg loader"
                                         onClick={() => handleLogin()}
+                                        disabled={isLoading}
                                     >
-                                        Login
+                                        {isLoading && (
+                                            <AiOutlineLoading3Quarters className="loader-icon" />
+                                        )}
+
+                                        <span>Login</span>
                                     </button>
                                     <p class="small fw-bold mt-2 pt-1 mb-0">
                                         Don't have an account?{" "}

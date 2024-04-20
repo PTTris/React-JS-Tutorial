@@ -7,7 +7,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "mdb-react-ui-kit/dist/css/mdb.min.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import { BrowserRouter } from "react-router-dom";
-
+import "nprogress/nprogress.css";
 import * as mdb from "mdb-ui-kit"; // lib
 import Layout from "./Layout";
 window.mdb = mdb;
