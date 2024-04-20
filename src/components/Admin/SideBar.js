@@ -1,6 +1,7 @@
 import "react-pro-sidebar/dist/css/styles.css";
 import { FaBars } from "react-icons/fa";
 import { GiReactor } from "react-icons/gi";
+import { useNavigate } from "react-router-dom";
 import {
     ProSidebar,
     Menu,
@@ -11,18 +12,12 @@ import {
     SidebarContent,
 } from "react-pro-sidebar";
 
-import {
-    FaTachometerAlt,
-    FaGem,
-    FaList,
-    FaGithub,
-    FaRegLaughWink,
-    FaHeart,
-} from "react-icons/fa";
+import { FaTachometerAlt, FaRegLaughWink } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
 const SideBar = (props) => {
     const { collapsed, toggled, handleToggleSidebar, setCollapsed } = props;
+    const navigate = useNavigate();
     return (
         <>
             <ProSidebar
@@ -100,14 +95,13 @@ const SideBar = (props) => {
                             padding: "20px 24px",
                         }}
                     >
-                        <a
-                            href="https://github.com/azouaoui-med/react-pro-sidebar"
-                            target="_blank"
+                        <span
                             className="sidebar-btn"
-                            rel="noopener noreferrer"
+                            style={{ color: "#fff", cursor: "pointer" }}
+                            onClick={() => navigate("/")}
                         >
-                            <span style={{ color: "#fff" }}>PT26 Coder</span>
-                        </a>
+                            PT26 Coder
+                        </span>
                     </div>
                 </SidebarFooter>
             </ProSidebar>

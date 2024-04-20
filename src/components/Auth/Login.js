@@ -3,6 +3,8 @@ import "./Login.scss";
 import { useNavigate } from "react-router-dom";
 import { postLogin } from "../../Services/apiService";
 import { toast } from "react-toastify";
+import { useDispatch } from "react-redux";
+import { doLogin } from "../../redux/action/userAction";
 
 const Login = () => {
     const validateEmail = (email) => {
@@ -12,9 +14,12 @@ const Login = () => {
                 /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
             );
     };
+
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+
     const handleLogin = async () => {
         if (!validateEmail(email)) {
             toast.error("Invalid email!");
@@ -31,6 +36,7 @@ const Login = () => {
         let data = await postLogin(email, password);
         console.log(data);
         if (data.EC === 0) {
+            dispatch(doLogin(data));
             navigate("/");
         }
         if (data && +data.EC !== 0) {
@@ -334,7 +340,7 @@ const Login = () => {
                                         type="button"
                                         data-mdb-button-init
                                         data-mdb-ripple-init
-                                        class="btn btn-primary btn-lg"
+                                        class="btn btn-primary btn-lg "
                                         style={{
                                             paddingLeft: "2.5rem",
                                             paddingRight: "2.5rem",
