@@ -28,8 +28,8 @@ const Register = () => {
             toast.error("Invalid password!");
             return;
         }
-        if (password.length < 8) {
-            toast.error("Please enter 8 characters");
+        if (password.length < 4) {
+            toast.error("Please enter 4 characters");
             return;
         }
         if (!username) {
